@@ -1,0 +1,79 @@
+<p-table [value]="viewService.values$ | async" [loading]="viewService.indicator.isLoading$ | async">
+  <ng-template pTemplate="caption">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-9">
+          <h3>Product sales</h3>
+        </div>
+        <div class="col-3">
+          <input #search (change)="viewService.search$.next(search.value)" placeholder="Search..." class="w-100">
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let column of viewService.columns$ | async"
+          [pSortableColumn]="column.subHeaders ? '' : column.field"
+          [class.text-right]="viewService.isNumberColumn(column)"
+          [class.text-center]="!!column.subHeaders"
+          pReorderableColumn
+          pResizableColumn
+          [rowSpan]="column.subHeaders ? 1 : 2"
+          [colSpan]="column.subHeaders ? column.subHeaders.length : 1"
+      >
+        {{ column.header }}
+        <p-sortIcon [field]="column.field" *ngIf="!column.subHeaders"></p-sortIcon>
+      </th>
+    </tr>
+    <tr>
+      <th *ngFor="let column of viewService.columnsWithSubColumns$ | async"
+          [pSortableColumn]="column.field"
+          [class.number]="viewService.isNumberColumn(column)"
+          pResizableColumn
+          pReorderableColumn
+      >
+        {{ column.header }}
+        <p-sortIcon [field]="column.field"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-sale>
+    <tr>
+      <td *ngFor="let column of viewService.valueColumns$ | async"
+          [class.text-right]="viewService.isNumberColumn(column)"
+      >
+        <span *ngIf="viewService.isSalesColumn(column) && column.field !== 'id'; else simpleColumn" class="number">
+          <input [formControl]="getFormControlFor(column, sale)" type="number"  class="table-input w-100 number border-0"/>
+        </span>
+        <ng-template #simpleColumn>
+          <span [class.number]="viewService.isTotalsColumn(column)">{{ sale[column.field || 'total'] }}</span>
+        </ng-template>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="footer" *ngIf="viewService.totals$ | async as totalSales">
+    <tr *ngIf="totalSales.salesQ1 || totalSales.salesQ2 || totalSales.salesQ3 || totalSales.salesQ4">
+      <td></td>
+      <td><strong>Total</strong></td>
+      <td *ngFor="let saleColumn of viewService.salesColumns$ | async"
+          class="number pr-4">
+        {{ totalSales[saleColumn] }}
+      </td>
+      <td class="number">
+        {{ totalSales.total }}
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td *ngIf="(viewService.valueColumns$ | async) as valueColumns" [colSpan]="valueColumns.length">
+        <div class="alert alert-info">No sales found</div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
