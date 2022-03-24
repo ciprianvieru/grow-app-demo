@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/home">GROW App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" [class.active]="isActiveRoute('home')">
+        <a class="nav-link" routerLink="/home"><i class="pi pi-home"></i> Home</a>
+      </li>
+      <li class="nav-item" [class.active]="isActiveRoute('product')">
+        <a class="nav-link" routerLink="/product/new"><i class="pi pi-plus"></i>New Product</a>
+      </li>
+      <li class="nav-item" [class.active]="isActiveRoute('sales')">
+        <a class="nav-link" routerLink="/sales"><i class="pi pi-list"></i> Sales</a>
+      </li>
+    </ul>
+  </div>
+</nav>
