@@ -6,7 +6,7 @@
           <h3>Product sales</h3>
         </div>
         <div class="col-3">
-          <input #search (change)="viewService.search$.next(search.value)" placeholder="Search..." class="w-100">
+          <input #search (keyup)="viewService.search$.next(search.value)" placeholder="Search..." class="w-100">
         </div>
       </div>
     </div>
