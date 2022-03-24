@@ -1,0 +1,45 @@
+<grow-app-header title="Potent Potato Product"></grow-app-header>
+
+<form [formGroup]="form" class="w-50 align-middle" [class.has-validation]="showValidationFeedback$ | async" novalidate>
+  <div class="form-group">
+      <label for="product_id" class="form-label">Id</label>
+      <input type="number" id="product_id" formControlName="id" class="form-control" maxlength="13">
+    <div class="errors">
+      <div class="error ng-invalid" *ngIf="form.controls.id.hasError('required')">Id can not be empty</div>
+      <div class="error ng-invalid" *ngIf="form.controls.id.hasError('maxLength')">Id can not be longer then 13 digits</div>
+      <div class="error ng-invalid" *ngIf="form.controls.id.hasError('pattern')">Id must be a natural number</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="product_name" class="form-label">Name</label>
+    <input id="product_name" formControlName="name" class="form-control" maxlength="50">
+    <div class="errors">
+      <div class="error ng-invalid" *ngIf="form.controls.name.hasError('required')">Name can not be empty</div>
+      <div class="error ng-invalid" *ngIf="form.controls.name.hasError('maxLength')">Name can not be longer then 50 characters</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="product_manager" class="form-label">Manager</label>
+    <input id="product_manager" formControlName="manager" class="form-control" maxlength="30">
+    <div class="errors">
+      <div class="error ng-invalid" *ngIf="form.controls.manager.hasError('maxLength')">Manager can not be longer then 30 digits</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="product_sales_start_date" class="form-label">Sales start date</label>
+    <input type="date" id="product_sales_start_date" formControlName="salesStartDate" class="form-control"/>
+    <div class="errors">
+      <div class="error ng-invalid" *ngIf="form.controls.salesStartDate.hasError('required')">Sales start date can not be empty</div>
+      <div class="error ng-invalid" *ngIf="form.controls.salesStartDate.hasError('date')">Sales start date must be a valid date in format {{ browserLocaleDateFormat }}</div>
+    </div>
+  </div>
+
+  <div class="text-right mt-3">
+    <a class="btn btn-default" (click)="reset()">Reset</a>
+    <a class="btn btn-primary" (click)="save()">Save</a>
+  </div>
+
+</form>
