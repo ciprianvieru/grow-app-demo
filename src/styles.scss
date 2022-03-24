@@ -1,0 +1,26 @@
+@import "~bootstrap/scss/bootstrap";
+@import "~primeicons/primeicons.css";
+@import "~primeng/resources/themes/bootstrap4-light-blue/theme.css";
+@import "~primeng/resources/primeng.min.css";
+
+.number {
+  @extend .text-right;
+}
+.errors {
+  display: none;
+}
+.has-validation {
+  .ng-invalid {
+    border-color: $red !important;
+    color: $red !important;
+  }
+
+  input.ng-invalid {
+    color: $black !important;
+  }
+
+  .errors {
+    display: block;
+  }
+}
+

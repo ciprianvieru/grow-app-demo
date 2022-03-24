@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div class="row" *ngIf="userService.isAuthenticated$ | async">
+    <div class="col-12">
+      <grow-app-nav></grow-app-nav>
+    </div>
+  </div>
+  <div>
+    <grow-app-messages></grow-app-messages>
+    <router-outlet></router-outlet>
+  </div>
+</div>
