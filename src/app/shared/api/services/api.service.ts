@@ -19,6 +19,6 @@ export class ApiService {
     if (!this.config.hasOwnProperty(serviceName)) {
       throw new Error(`'${serviceName}' is not configured`);
     }
-    return [this.config.baseUrl, this.config[serviceName]].join('/x/');
+    return [this.config.baseUrl, this.config[serviceName]].join('/');
   }
 }
