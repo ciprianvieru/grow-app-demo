@@ -1,0 +1,9 @@
+<div class="feeback-messages">
+  <div class="alert alert-success" *ngFor="let message of feedbackService.successes$ | async">{{ message }}</div>
+  <div class="alert alert-danger" *ngFor="let error of feedbackService.errors$ | async">
+    {{ error }}
+    <div class="text-right">
+      <a class="btn btn-outline-secondary" (click)="feedbackService.clearError(error)">Dismiss</a>
+    </div>
+  </div>
+</div>
